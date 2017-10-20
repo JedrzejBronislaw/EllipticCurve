@@ -10,12 +10,17 @@ public class Console {
 
 	public void start() {
 		scanner = new Scanner(System.in);
+		showHead();
 		formula();
 		for (int i=0; i<3; i++)
 			calculateY();
 		scanner.close();
 
 		System.out.println("\n\tTHE END.");
+	}
+
+	private void showHead() {
+		System.out.println("\tElliptic Curve\n");
 	}
 
 	public void formula(){
