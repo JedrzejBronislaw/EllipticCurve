@@ -1,2 +1,3 @@
 # Elliptic Curve
-readme
+Opis projektu<br>
+Project description
