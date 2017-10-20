@@ -1,1 +1,1 @@
-# EllipticCurve
+# Elliptic Curve
