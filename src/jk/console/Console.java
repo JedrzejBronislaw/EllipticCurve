@@ -3,6 +3,7 @@ package jk.console;
 import java.util.Scanner;
 
 import jk.domain.EllipseCurve;
+import jk.domain.tool.AboutCurve;
 
 public class Console {
 	Scanner scanner;
@@ -12,6 +13,9 @@ public class Console {
 		scanner = new Scanner(System.in);
 		showHead();
 		formula();
+
+		aboutEllipseCurve();
+
 		for (int i=0; i<3; i++)
 			calculateY();
 		scanner.close();
@@ -21,6 +25,14 @@ public class Console {
 
 	private void showHead() {
 		System.out.println("\tElliptic Curve\n");
+	}
+
+	private void aboutEllipseCurve()
+	{
+		AboutCurve aboutEC;
+		aboutEC = new AboutCurve(currentEC);
+
+		aboutEC.show();
 	}
 
 	public void formula(){
@@ -34,6 +46,7 @@ public class Console {
 		System.out.println("\nYour ellipse curve formula:");
 
 		ec = new EllipseCurve(a,b);
+
 
 		System.out.println(ec.getFormula());
 

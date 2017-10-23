@@ -9,6 +9,13 @@ public class EllipseCurve {
 		this.b = b2;
 	}
 
+	public double getA() {
+		return a;
+	}
+	public double getB() {
+		return b;
+	}
+
 	public String getFormula() {
 		return "y^2 = x^3 + " + a + "x + " + b;
 	}
@@ -30,8 +37,8 @@ public class EllipseCurve {
 	public Point getPoint(double x){
 		return new Point(x, getY(x));
 	}
-	
+
 //	public double getMinX(){
-//		
+//
 //	}
 }
