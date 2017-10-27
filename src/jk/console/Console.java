@@ -1,23 +1,51 @@
 package jk.console;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import jk.console.tasks.ComputeECYTask;
+import jk.console.tasks.CreateECFromConsoleParameterTask;
 import jk.domain.EllipseCurve;
-import jk.domain.tool.AboutCurve;
 
 public class Console {
-	Scanner scanner;
 	EllipseCurve currentEC = null;
+	List<Task> tasks = new ArrayList<>();
+
+
+	public Console() {
+		tasks.add(new CreateECFromConsoleParameterTask());
+		tasks.add(new ComputeECYTask());
+	}
 
 	public void start() {
-		scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
+		String line, taskName;
+		String[] splitLine;
+		boolean exit = false;
+
 		showHead();
-		formula();
 
-		aboutEllipseCurve();
+		while (!exit){
+			line = scanner.nextLine();
+			splitLine = line.split(" ");
+			taskName = splitLine[0];
+			if (taskName.equals("exit")) exit = true;
 
-		for (int i=0; i<3; i++)
-			calculateY();
+			for(Task t : tasks)
+				if (t.inMyName(taskName)){
+					t.go(scanner, splitLine);
+					break;
+				}
+		}
+
+
+//		formula();
+
+//		aboutEllipseCurve();
+
+//		for (int i=0; i<3; i++)
+//			calculateY();
 		scanner.close();
 
 		System.out.println("\n\tTHE END.");
@@ -27,40 +55,13 @@ public class Console {
 		System.out.println("\tElliptic Curve\n");
 	}
 
-	private void aboutEllipseCurve()
-	{
-		AboutCurve aboutEC;
-		aboutEC = new AboutCurve(currentEC);
-
-		aboutEC.show();
-	}
-
-	public void formula(){
-		double a,b;
-		EllipseCurve ec;
-
-		System.out.print("Specify a, please: ");
-		a = scanner.nextDouble();
-		System.out.print("Specify b, please: ");
-		b = scanner.nextDouble();
-		System.out.println("\nYour ellipse curve formula:");
-
-		ec = new EllipseCurve(a,b);
+//	private void aboutEllipseCurve()
+//	{
+//		AboutCurve aboutEC;
+//		aboutEC = new AboutCurve(currentEC);
+//
+//		aboutEC.show();
+//	}
 
 
-		System.out.println(ec.getFormula());
-
-		currentEC = ec;
-	}
-
-	public void calculateY()
-	{
-		double x;
-
-		System.out.print("\nSpecify X, please: ");
-		x = scanner.nextDouble();
-		System.out.println("P = (" + x + ", " + currentEC.getY(x) + ")");
-		System.out.println("    or");
-		System.out.println("P = (" + x + ", " + -currentEC.getY(x) + ")");
-	}
 }
