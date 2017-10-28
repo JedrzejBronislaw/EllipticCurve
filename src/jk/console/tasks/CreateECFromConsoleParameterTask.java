@@ -2,13 +2,20 @@ package jk.console.tasks;
 
 import java.util.Scanner;
 
+import jk.console.Register;
 import jk.console.Task;
 import jk.domain.EllipseCurve;
 import jk.domain.tool.AboutCurve;
 
 public class CreateECFromConsoleParameterTask implements Task {
 
+	private Register register;
 	private EllipseCurve currentEC;
+
+	@Override
+	public void setRegister(Register register) {
+		this.register = register;
+	}
 
 	@Override
 	public boolean inMyName(String name) {
