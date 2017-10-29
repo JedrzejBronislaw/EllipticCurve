@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jk.domain.EllipseCurve;
+import jk.domain.Point;
 
 public class AboutCurve {
 
 	private EllipseCurve ec;
 	private boolean babel = false;
+	Point max;
+	Point min;
 
 	public AboutCurve(EllipseCurve ec) {
 		this.ec = ec;
@@ -40,18 +43,24 @@ public class AboutCurve {
 			System.out.println("             x = " + (-pierw));
 			System.out.println();
 
-			double min = pierw*pierw*pierw + a * pierw;
-			double max = -min;
-			System.out.println("P_max=(" + pierw + ", " + max + ")");
-			System.out.println("P_min=(" + (-pierw) + ", " + min + ")");
+			double locMinVal = pierw*pierw*pierw + a * pierw;
+			double locMaxVal = -locMinVal;
+//			System.out.println("P_max=(" + pierw + ", " + max + ")");
+//			System.out.println("P_min=(" + (-pierw) + ", " + min + ")");
 
-			babel = (b<=max) && (b>=min);
+			max = new Point( pierw, locMaxVal);
+			min = new Point(-pierw, locMinVal);
+
+
+			babel = (b<=locMaxVal) && (b>=locMinVal);
 		}
 		System.out.println();
 
 	}
 
 	public void show() {
-		System.out.println("Babel: " + (babel ? "TAK" : "NIE"));
+		System.out.println("Local minimu value:  " + min);
+		System.out.println("Local maximum value: " + max);
+		System.out.println("Bubble: " + (babel ? "YES" : "NO"));
 	}
 }

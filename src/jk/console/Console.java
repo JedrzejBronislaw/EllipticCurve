@@ -14,8 +14,9 @@ public class Console {
 
 
 	public Console() {
-		tasks.add(new CreateECFromConsoleParameterTask());
-		tasks.add(new ComputeECYTask());
+		Register register = new Register();
+		tasks.add(new CreateECFromConsoleParameterTask().setRegister(register));
+		tasks.add(new ComputeECYTask().setRegister(register));
 	}
 
 	public void start() {
@@ -27,41 +28,33 @@ public class Console {
 		showHead();
 
 		while (!exit){
+			System.out.print(">: ");
 			line = scanner.nextLine();
 			splitLine = line.split(" ");
 			taskName = splitLine[0];
 			if (taskName.equals("exit")) exit = true;
+			if (taskName.equals("help")) help();
 
 			for(Task t : tasks)
-				if (t.inMyName(taskName)){
+				if (t.isMyName(taskName)){
 					t.go(scanner, splitLine);
 					break;
 				}
 		}
 
-
-//		formula();
-
-//		aboutEllipseCurve();
-
-//		for (int i=0; i<3; i++)
-//			calculateY();
 		scanner.close();
 
 		System.out.println("\n\tTHE END.");
 	}
 
+	private void help() {
+		for (Task t : tasks){
+			System.out.println(t.getName() + " - " + t.getHelpShortText());
+		}
+	}
+
 	private void showHead() {
 		System.out.println("\tElliptic Curve\n");
 	}
-
-//	private void aboutEllipseCurve()
-//	{
-//		AboutCurve aboutEC;
-//		aboutEC = new AboutCurve(currentEC);
-//
-//		aboutEC.show();
-//	}
-
 
 }

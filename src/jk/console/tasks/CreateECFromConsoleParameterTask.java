@@ -10,20 +10,33 @@ import jk.domain.tool.AboutCurve;
 public class CreateECFromConsoleParameterTask implements Task {
 
 	private Register register;
-	private EllipseCurve currentEC;
+
+	private String name = "formula";
+
+	public String getHelpShortText() {
+		//todo
+		return "new EC createing";
+	};
 
 	@Override
-	public void setRegister(Register register) {
+	public String getHelpText() {
+		return getHelpShortText();
+	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public Task setRegister(Register register) {
 		this.register = register;
+		return this;
 	}
 
 	@Override
-	public boolean inMyName(String name) {
-		return name.equals("formula");
-	}
-
-	public EllipseCurve getCurrentEC() {
-		return currentEC;
+	public boolean isMyName(String name) {
+		return name.toLowerCase().equals(this.name);
 	}
 
 	@Override
@@ -44,8 +57,7 @@ public class CreateECFromConsoleParameterTask implements Task {
 			System.out.println(ec.getFormula());
 			aboutCurve.show();
 
-
-			currentEC = ec;
+			register.setCurrentEC(ec);
 	}
 
 
